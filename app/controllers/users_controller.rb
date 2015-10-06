@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def show
     user_id = params[:id]
+    @posts = Post.where(user_id: user_id)
     @user = User.find(user_id)
   end
 
@@ -42,7 +43,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :languages)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :languages)
   end
 
 end

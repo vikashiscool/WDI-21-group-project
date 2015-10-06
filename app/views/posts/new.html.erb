@@ -1,2 +1,10 @@
-<h1>Posts#new</h1>
-<p>Find me in app/views/posts/new.html.erb</p>
+<% if current_user %>
+<%= form_for [@user, @post]  do |f| %>
+  <%= f.label "title" %>
+  <%= f.text_area :body, class: "form-control" %><br>
+  <%= f.submit :submit %>
+<% end %>
+<% else %>
+  <h1>Please Login</h1>
+<% end %>
+

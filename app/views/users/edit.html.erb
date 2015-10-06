@@ -1,2 +1,9 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<h1>Update your profile</h1>
+
+<%= form_for @user, :html => { :multipart => true } do |f| %>
+  <%= f.text_field :name, class: "form-control" %>
+  <%= f.email_field :email, class: "form-control" %>
+  <%= f.hidden_field :password, class: "form-control" %>
+  <%= f.hidden_field :password_confirmation, class: "form_control" %>
+  <%= f.submit "Save Changes" %>
+<% end %>
