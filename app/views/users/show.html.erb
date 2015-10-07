@@ -1,12 +1,15 @@
 <div class="container">
 	<h1 class="jumbotron">
-		Hello <%= current_user.name %>
+		Hello <%= @user.name %>
 	</h1>
-	<div class="user_posts">
-		<div class="row row-wrap">
-		<% @posts.each do |f| %>
-		<div class="col-xs-4 col-sm-4 col-md-4">
-			<p><%= f.body %></p>
+		<div class="user_posts">
+			<% @posts.each do |p| %>
+			<%= p.body %>
+			<div class="post_comments">
+				<% p.comments.each do |c| %>
+				<%= c.body %>
+				<% end %>
+				<% end %>
+			</div>
 		</div>
-		<% end %>
-	</div>
+</div>

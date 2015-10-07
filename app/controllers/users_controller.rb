@@ -20,8 +20,15 @@ class UsersController < ApplicationController
 
   def show
     user_id = params[:id]
-    @posts = Post.where(user_id: user_id)
-    @user = User.find(user_id)
+    if current_user
+      @user = User.find(current_user.id)
+      @posts = []
+      @user.posts.each do |t|
+        @posts.push(t)
+      end
+    else
+      redirect_to root
+    end 
   end
 
   def edit
