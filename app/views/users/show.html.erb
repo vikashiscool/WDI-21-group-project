@@ -1,0 +1,36 @@
+<div class="container">
+  <h1 class="jumbotron">
+    Hello <%= @user.name %>
+  </h1>
+  <% current_user.friends.each do |t| %>
+    <%= t.name %>
+  <% end %>
+  <% current_user.pending_friends.each do |p| %>
+    Pending friend: <%= p.name %>
+    <%= link_to "Confirm friend?", url: "/friendables/#{p.id}", :method => "put" %>
+  <% end %>
+  <% unless current_user == @user %>
+    <%= link_to "Add Friend", friendables_path(:friend_id => @user), :method => :post %>
+    <%= link_to "Confirm Friend?", url: "/friendables/#{@user.id}", :method => "put" %>
+  <% end %>
+  <%= form_for :post, url: "/users/#{current_user.id}/posts" do |post| %>
+    <%= post.text_area :body, placeholder: "New Post" %>
+    <%= post.submit "Submit" %>
+  <% end %>
+  <% if current_user == @user %>
+  <% @posts.each do |p| %>
+    <div class="user_posts">
+      <%= p.body %>
+      <%= form_for :comment, url: "/users/#{current_user.id}/posts/#{p.id}/comments" do |t| %>
+        <%= t.text_field :body, placeholder: "New comment" %>
+        <%= t.submit "Submit" %>
+      <% end %>
+      <% p.comments.each do |c| %>
+        <div class="post_comments">
+          <%= c.body %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
