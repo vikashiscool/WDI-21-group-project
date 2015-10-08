@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require bootstrap.min
+
+
+var newComment = $('#newComment')
+newComment.click = function(event) {
+	event.preventDefault();
+	alert("clicked")
+};

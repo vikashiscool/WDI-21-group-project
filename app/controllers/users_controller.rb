@@ -20,14 +20,14 @@ class UsersController < ApplicationController
 
   def show
     user_id = params[:id]
-    if current_user
+    if current_user.id == user_id.to_i
       @user = User.find(current_user.id)
       @posts = []
       @user.posts.each do |t|
         @posts.push(t)
       end
     else
-      redirect_to root
+      @user = User.find(user_id)
     end 
   end
 
