@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require turbolinks
 //= require_tree .
 //= require bootstrap.min
@@ -22,3 +23,4 @@ newComment.click = function(event) {
 	event.preventDefault();
 	alert("clicked")
 };
+$(function(){ $(document).foundation(); });
