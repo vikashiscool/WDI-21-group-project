@@ -1,10 +1,9 @@
 class FriendablesController < ApplicationController
   def create
     @friendables = current_user.friendables.build(:friend_id => params[:friend_id], accepted: "false")
-    binding.pry
     if @friendables.save
       flash[:notice] = "Friend Requested."
-      redirect_to :back
+      redirect_to user_path(@friendables.friend_id)
     else
       flash[:notice] = "Unable to request friendship."
       redirect_to :back
@@ -12,12 +11,12 @@ class FriendablesController < ApplicationController
   end
 
   def update
-    @friendable = Friendable.where(friend_id: current_user, user_id: params[:id]).first
-    @friendable.update(accepted: true)
-      if @friendable.save
-        redirect_to root_url, :notice => "Succesfully confirmed friend!"
+    @friendable = Friendable.where(user_id: current_user.id, friend_id: params[:id].to_i)
+    @friendable.first.update(accepted: true)
+      if @friendable.first.save
+        redirect_to user_path(current_user.id), :notice => "Succesfully confirmed friend!"
       else
-        redirect_to root_url, :notice => "Sorry! Could not confirm friend!"
+        redirect_to user_path(current_user.id), :notice => "Sorry! Could not confirm friend!"
       end
   end
 
@@ -26,5 +25,10 @@ class FriendablesController < ApplicationController
     @friendable.destroy
     flash[:notice] = "Removed friendable."
     redirect_to :back
+  end
+
+  private
+  def friendable_params
+    params.require(:friendable).permit(:accepted)
   end
 end
