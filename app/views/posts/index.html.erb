@@ -1,2 +1,13 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<div class="container">
+  <div class="row row-wrap">
+    <% @posts.each do |p| %>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <div class="posts_index">
+          <p><%= p.body %></p>
+          <small><%= image_tag User.where(id: p.user_id).first.avatar.url(:thumb) %><%= link_to User.where(id: p.user_id).first.name, user_path(p.user_id) %> </small>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+

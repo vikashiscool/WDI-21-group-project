@@ -1,12 +1,14 @@
 <div class="container">
   <h1 class="jumbotron">
     Hello <%= @user.name %>
+    <%= image_tag @user.avatar.url(:thumb) %>
   </h1>
   <div class="row">
     <div class="col-md-3">
       <% if current_user == @user %>
         <div class="friends_list">
           <% current_user.friends.each do |t| %>
+            <%= image_tag t.avatar.url(:thumb) %>
             <p><%= link_to t.name, user_path(t.id) %></p>
           <% end %>
         </div>
